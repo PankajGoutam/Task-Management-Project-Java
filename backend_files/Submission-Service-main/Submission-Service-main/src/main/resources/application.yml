@@ -1,0 +1,30 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://dpg-cnk401ol5elc73d4dnlg-a.oregon-postgres.render.com/database_okf1
+    username: database_okf1_user
+    password: bLgoRKoOUiLKb9jZEX3Yxj1klXE4FwBh
+    
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: SUBMISSION-SERVICE
+    
+    
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: https://eureka-server-ak2z.onrender.com/eureka/
