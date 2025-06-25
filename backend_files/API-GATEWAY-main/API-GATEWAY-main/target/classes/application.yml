@@ -1,0 +1,46 @@
+# Server configuration
+server:
+  port: 8084
+
+# Spring application configuration
+spring:
+  application:
+    name: Api-Gateway
+  cloud:
+    gateway:
+      # Gateway routes configuration
+      routes:
+        # Route for USERSERVICE
+        - id: USER-SERVICE
+          uri: https://user-service-qgs4.onrender.com
+          predicates:
+            - Path=/auth/**,/users/**,/api/users/**,/
+
+        # Route for TASK-SERVICE
+        - id: TASK-SERVICE
+          uri: https://task-service-eveg.onrender.com
+          predicates:
+            - Path=/api/tasks/**,/tasks/**
+
+        # Route for TASK-SUBMISSION-SERVICE
+        - id: SUBMISSION-SERVICE
+          uri: https://submission-service.onrender.com
+          predicates:
+            - Path=/api/submission/**,/submission/**
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"      
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: https://eureka-server-ak2z.onrender.com/eureka/
